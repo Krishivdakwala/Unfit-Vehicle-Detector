@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 class LicensePlateDetector:
     def __init__(self, pth_weights: str, pth_cfg: str, pth_classes: str):
         self.net = cv2.dnn.readNet(pth_weights, pth_cfg)
@@ -15,10 +14,11 @@ class LicensePlateDetector:
         self.img = None
         self.fig_image = None
         self.roi_image = None
+        self.count = 0
 
 
-    def detect(self, img_path: str):
-        orig = cv2.imread(img_path)
+    def detect(self, image: str):
+        orig = image
         self.img = orig
         img = orig.copy()
         height, width, _ = img.shape
@@ -35,7 +35,7 @@ class LicensePlateDetector:
                 scores = detection[5:]
                 class_id = np.argmax(scores)
                 confidence = scores[class_id]
-                if confidence > 0.2:
+                if confidence > 0.1:
                     center_x = int(detection[0] * width)
                     center_y = int(detection[1] * height)
                     w = int(detection[2] * width)
@@ -53,11 +53,17 @@ class LicensePlateDetector:
             for i in indexes.flatten():
                 x, y, w, h = boxes[i]
                 label = str(self.classes[class_ids[i]])
-                confidence = str(round(confidences[i],2))
-                cv2.rectangle(img, (x,y), (x + w, y + h), self.color, 15)
-                cv2.putText(img, label + ' ' + confidence, (x, y + 20), self.font, 3, (255, 255, 255), 3)
+                confidence = str(round(confidences[i], 2))
+                cv2.rectangle(img, (x,y), (x + w, y + h), self.color, 3)
+                cv2.putText(img, label + ' ' + confidence, (x, y + 20), self.font, 1, (255, 255, 255), 1)
+                self.coordinates = (x, y, w, h)
+                self.crop_plate()
         self.fig_image = img
-        self.coordinates = (x, y, w, h)
+
+        # try:
+        #    self.coordinates = (x, y, w, h)
+        # except:
+        #     pass
         return
 
 
@@ -65,24 +71,29 @@ class LicensePlateDetector:
         x, y, w, h = self.coordinates
         roi = self.img[y:y + h, x:x + w]
         self.roi_image = roi
+        cv2.imwrite(r"detected_plates\plate_{}.png".format(self.count), roi)
+        self.count += 1
+
         return
 
-lpd = LicensePlateDetector(
-    pth_weights='yolov3-train_final.weights',
-    pth_cfg='yolov3_testing.cfg',
-    pth_classes='classes.txt'
-)
+def main():
+    cap = cv2.VideoCapture("gaadi2.mp4")
+    lpd = LicensePlateDetector(
+        pth_weights='yolov3-train_final.weights',
+        pth_cfg='yolov3_testing.cfg',
+        pth_classes='classes.txt'
+    )
 
-# Detect license plate
-lpd.detect('001.jpg')
+    while True:
+        ret, frame = cap.read()
+        lpd.detect(frame)
+        cv2.imshow('frame', lpd.fig_image)
+        cv2.waitKey(1)
 
-# Plot original image with rectangle around the plate
-plt.figure(figsize=(24, 24))
-plt.imshow(cv2.cvtColor(lpd.fig_image, cv2.COLOR_BGR2RGB))
-plt.savefig('detected.jpg')
-plt.show()
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
-# Crop plate and show cropped plate
-lpd.crop_plate()
-plt.figure(figsize=(10, 4))
-plt.imshow(cv2.cvtColor(lpd.roi_image, cv2.COLOR_BGR2RGB))
+    cap.release()
+    cv2.destroyAllWindows()
+
+main()
