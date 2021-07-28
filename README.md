@@ -1,2 +1,11 @@
 # Unfit-Vehicle-Detector
-<object data="/Project Details.pdf" type="application/pdf" width="100%">
+![alt text](https://github.com/Krishivdakwala/Unfit-Vehicle-Detector/blob/main/Images/Project%20Details_pages-to-jpg-0001.jpg)
+![alt text](https://github.com/Krishivdakwala/Unfit-Vehicle-Detector/blob/main/Images/Project%20Details_pages-to-jpg-0002.jpg)
+![alt text](https://github.com/Krishivdakwala/Unfit-Vehicle-Detector/blob/main/Images/Project%20Details_pages-to-jpg-0003.jpg)
+![alt text](https://github.com/Krishivdakwala/Unfit-Vehicle-Detector/blob/main/Images/Project%20Details_pages-to-jpg-0004.jpg)
+![alt text](https://github.com/Krishivdakwala/Unfit-Vehicle-Detector/blob/main/Images/Project%20Details_pages-to-jpg-0005.jpg)
+![alt text](https://github.com/Krishivdakwala/Unfit-Vehicle-Detector/blob/main/Images/Project%20Details_pages-to-jpg-0006.jpg)
+![alt text](https://github.com/Krishivdakwala/Unfit-Vehicle-Detector/blob/main/Images/Project%20Details_pages-to-jpg-0007.jpg)
+![alt text](https://github.com/Krishivdakwala/Unfit-Vehicle-Detector/blob/main/Images/Project%20Details_pages-to-jpg-0008.jpg)
+![alt text](https://github.com/Krishivdakwala/Unfit-Vehicle-Detector/blob/main/Images/Project%20Details_pages-to-jpg-0009.jpg)
+![alt text](https://github.com/Krishivdakwala/Unfit-Vehicle-Detector/blob/main/Images/Project%20Details_pages-to-jpg-0010.jpg)
