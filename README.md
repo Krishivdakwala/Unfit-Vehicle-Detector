@@ -1,2 +1,2 @@
 # Unfit-Vehicle-Detector
-<embed src="/Project Details.pdf" type="application/pdf">
+<object data="/Project Details.pdf" type="application/pdf" width="100%">
